@@ -13,7 +13,8 @@
     "express": "^4.17.1",
     "express-fileupload": "^1.1.7-alpha.4",
     "lodash": "^4.17.19",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "unzip": "^0.1.11"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"
