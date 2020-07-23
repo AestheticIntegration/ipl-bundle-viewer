@@ -2,7 +2,7 @@ const express = require('express');
 const fileUpload = require('express-fileupload');
 const morgan = require('morgan');
 const _ = require('lodash');
-const fs = require('fs');
+const fs = require('fs-extra');
 const path = require('path');
 const unzip = require('unzip');
 const stream = require('stream');
@@ -16,6 +16,7 @@ app.use(express.static('static'));
 function unzipBundle(file, path, cb) {
     let extract = unzip.Extract({ path: path });
     extract.on('close', function () {
+        cb();
     });
 
     let readable = new stream.Readable();
@@ -27,15 +28,15 @@ function unzipBundle(file, path, cb) {
 
 app.post('/upload', function (req, res) {
     if (!req.files || !req.files['bundle']) {
-        res.send('No file uploaded.');
+        res.redirect('/');
     } else {
         let bundleDir = path.join(__dirname, 'static', 'bundle');
         if (fs.existsSync(bundleDir)) {
-            fs.rmdirSync(bundleDir, { recursive: true });
+            fs.removeSync(bundleDir);
         }
 
         unzipBundle(req.files['bundle'], bundleDir, function () {
-            res.send('ok');
+            res.redirect('/');
         });
     }
 });

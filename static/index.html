@@ -1,11 +1,38 @@
 <html>
     <head>
+        <style>
+         body {
+             font-family: sans-serif;
+         }
+        </style>
     </head>
     <body>
-        <h1>Hello</h1>
-        <form action="/upload" method="POST" enctype="multipart/form-data">
-            <input type="file" name="bundle" />
-            <input type="submit" />
-        </form>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h1>Imandra Job Viewer</h1>
+            <a href="/upload.html">Upload a new bundle</a>
+        </div>
+        <div id="app"></div>
+        <script src="/bundle/imandraViewerApp.js"></script>
+        <script>
+         if (window.renderImandraApp) {
+             window.renderImandraApp({
+                 targetId: "app",
+                 basePath: "",
+                 jsonDataStr: undefined,
+                 onSelectionChanged: function (selection) {
+                     console.log("onSelectionChanged");
+                     console.log(selection)
+                 },
+                 caseDetailsUrl: function (caseId, testgenInfo) {
+                     console.log("caseDetailsUrl");
+                     console.log(caseId);
+                     console.log(testgenInfo);
+                     return "/path/to/testScript/handler/" + testgenInfo.testScriptFilename;
+                 }
+             });
+         } else {
+             window.location.pathname = '/upload.html'
+         }
+        </script>
     </body>
 </html>
