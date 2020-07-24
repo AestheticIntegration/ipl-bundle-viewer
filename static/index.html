@@ -7,31 +7,21 @@
         </style>
     </head>
     <body>
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-            <h1>Imandra Job Viewer</h1>
-            <a href="/upload.html">Upload a new bundle</a>
-        </div>
-        <div id="app"></div>
         <script src="/bundle/imandraViewerApp.js"></script>
+        <h1>Imandra Bundle Upload</h1>
+        <div id="existing" style="display: none">
+            <a href="/app" style="display: block; margin-bottom: 1em">View previously uploaded bundle</a>
+        </div>
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+            <div style="margin-bottom: 1em">Upload full zip from Imandra Job download.</div>
+            <div style="margin-bottom: 1em">
+                <input type="file" name="bundle" >
+            </div>
+            <div> <input type="submit" value="Upload"> </div>
+        </form>
         <script>
          if (window.renderImandraApp) {
-             window.renderImandraApp({
-                 targetId: "app",
-                 basePath: "",
-                 jsonDataStr: undefined,
-                 onSelectionChanged: function (selection) {
-                     console.log("onSelectionChanged");
-                     console.log(selection)
-                 },
-                 caseDetailsUrl: function (caseId, testgenInfo) {
-                     console.log("caseDetailsUrl");
-                     console.log(caseId);
-                     console.log(testgenInfo);
-                     return "/path/to/testScript/handler/" + testgenInfo.testScriptFilename;
-                 }
-             });
-         } else {
-             window.location.pathname = '/upload.html'
+             document.getElementById('existing').style = '';
          }
         </script>
     </body>

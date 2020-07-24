@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <style>
+         body {
+             font-family: sans-serif;
+         }
+        </style>
+    </head>
+    <body>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h1>Imandra Job Viewer</h1>
+            <a href="/">Upload a new bundle</a>
+        </div>
+        <div id="app"></div>
+        <script src="/bundle/imandraViewerApp.js"></script>
+        <script>
+         if (window.renderImandraApp) {
+
+             fetch('/bundle/decomposition_tree_pp.json').then(function (res) {
+                 return res.json();
+             }).then(function (json) {
+                 window.renderImandraApp({
+                     targetId: "app",
+                     basePath: "/app",
+                     jsonData: json,
+                     onSelectionChanged: function (selection) {
+                         console.log("onSelectionChanged");
+                         console.log(selection)
+                     },
+                     caseDetailsUrl: function (caseId, testgenInfo) {
+                         return "/api/case/" + testgenInfo.testScriptFilename;
+                     }
+                 })
+             });
+         } else {
+             window.location.pathname = '/upload.html'
+         }
+        </script>
+    </body>
+</html>

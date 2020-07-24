@@ -36,15 +36,40 @@ app.post('/upload', function (req, res) {
         }
 
         unzipBundle(req.files['bundle'], bundleDir, function () {
-            res.redirect('/');
+            res.redirect('/app');
         });
     }
 });
 
-app.get('/api/**', function (req, res) {
-    console.log('API');
-    res.send('api');
+app.get('/api/case/:testScript', function (req, res) {
+    let testScriptFilename = req.params['testScript'];
+
+    let manifestPath = path.join(__dirname, 'static', 'bundle', 'manifest.json');
+    let manifest = JSON.parse(fs.readFileSync(manifestPath));
+
+    let tsPath = path.join(__dirname, 'static', 'bundle', 'certification', manifest.modelName, req.params['testScript']);
+    let ts = fs.readFileSync(tsPath);
+
+    res.send({
+        testgen: {
+            type: '',
+            testScript: {
+                filename: req.params['testScript'],
+                body: ts.toString()
+            }
+        }
+    });
 });
+
+function renderApp (req, res) {
+    let appHtml = path.join(__dirname, 'static', 'app.html');
+    fs.readFile(appHtml, 'utf8', function (err, html) {
+        res.send(html);
+    });
+}
+
+app.get('/app', renderApp);
+app.get('/app/**', renderApp);
 
 const port = process.env.PORT || 3000;
 
