@@ -52,7 +52,7 @@ app.get('/api/case/:testScript', function (req, res) {
 
     res.send({
         testgen: {
-            type: '',
+            type: 'conductor',
             testScript: {
                 filename: req.params['testScript'],
                 body: ts.toString()
