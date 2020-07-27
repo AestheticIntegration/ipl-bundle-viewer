@@ -10,6 +10,7 @@ const stream = require('stream');
 const app = express();
 
 app.use(morgan('dev'));
+app.use(express.json());
 app.use(fileUpload());
 app.use(express.static('static'));
 
@@ -59,6 +60,25 @@ app.get('/api/case/:testScript', function (req, res) {
             }
         }
     });
+});
+
+app.post('/api/select-cases', function (req, res) {
+    let cases = req.body.cases;
+    console.log('--------------');
+    console.log('Received selection:');
+    _.forEach(cases, function (c) {
+        // Loading the test script for a selected case:
+
+        // let tsPath = path.join(__dirname, 'static', 'bundle', 'certification', manifest.modelName, case.testgen.testScriptFilename);
+        // let ts = fs.readFileSync(tsPath);
+
+        console.log('  - case ', c.caseId);
+    });
+
+    console.log('--------------');
+    // TODO Implement test suite setup based on selection here
+
+    res.send('OK');
 });
 
 function renderApp (req, res) {

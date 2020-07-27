@@ -6,12 +6,29 @@
     </head>
     <body>
         <div style="display: flex; justify-content: space-between; align-items: center; font-family: 'Roboto'; padding: 1em">
-            <h1>IPL Viewer</h1>
-            <a href="/">Upload a new bundle</a>
+            <div>
+                <h1>IPL Viewer</h1>
+                <a href="/">Upload a new bundle</a>
+            </div>
+            <form id="handle-selection" method="POST" action="/api/select-cases">
+                <input type="submit"  value="Handle selection">
+            </form>
         </div>
         <div id="app"></div>
         <script src="/bundle/imandraViewerApp.js"></script>
         <script>
+         var selection;
+
+         var handleSelectionForm = document.getElementById('handle-selection');
+         handleSelectionForm.addEventListener('submit', function (e) {
+             e.preventDefault();
+             fetch('/api/select-cases', {
+                 method: 'POST',
+                 headers: { 'Content-Type': 'application/json' },
+                 body: JSON.stringify({ cases: selection })
+             });
+         });
+
          if (window.renderImandraApp) {
 
              fetch('/bundle/decomposition_tree_pp.json').then(function (res) {
@@ -21,9 +38,8 @@
                      targetId: "app",
                      basePath: "/app",
                      jsonData: json,
-                     onSelectionChanged: function (selection) {
-                         console.log("onSelectionChanged");
-                         console.log(selection)
+                     onSelectionChanged: function (s) {
+                         selection = s;
                      },
                      caseDetailsUrl: function (caseId, testgenInfo) {
                          return "/api/case/" + testgenInfo.testScriptFilename;
