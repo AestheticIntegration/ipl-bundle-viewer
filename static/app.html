@@ -5,10 +5,21 @@
         <link rel="stylesheet" href="/bundle/imandraViewerApp.css" />
     </head>
     <body>
-        <div style="display: flex; justify-content: space-between; align-items: center; font-family: 'Roboto'; padding: 1em">
+        <div style="font-family: 'Roboto'; padding: 1em; background-color: rgb(17, 22, 26); background-image: linear-gradient(rgb(27, 35, 41) 0%, rgb(17, 22, 26) 100%);">
+            <div style="display: flex; justify-content: space-between">
+                <div style="display: flex; align-items: center">
+                    <img src="https://www.imandra.ai/assets/ipl/images/itiviti-logo-1ac450a646896b944d19737db1f0480f.png" width="193px">
+                    <div style="margin-left: 1em">
+                        <div class="css-hudy02" style="color: rgb(152, 152, 152); font-family: Share Tech Mono, monospace; margin-bottom: 5px;">Powered by</div>
+                        <img class="css-1v5z18m" alt="Imandra Inc." src="https://www.imandra.ai/assets/images/imandra-gradient-logo-b52c268ee6244527a7276b44fadf6f05.svg" width="300px">
+                    </div>
+                </div>
+                <h1 style="color: white">IPL Viewer</h1>
+            </div>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-family: 'Roboto'; padding: 0.5em;">
             <div>
-                <h1>IPL Viewer</h1>
-                <a href="/">Upload a new bundle</a>
+                <a href="/"><button>Upload a new bundle</button></a>
             </div>
             <form id="handle-selection" method="POST" action="/api/select-cases">
                 <input type="submit"  value="Handle selection">
