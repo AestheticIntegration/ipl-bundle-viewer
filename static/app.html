@@ -52,8 +52,9 @@
                      onSelectionChanged: function (s) {
                          selection = s;
                      },
-                     caseDetailsUrl: function (caseId, testgenInfo) {
-                         return "/api/case/" + testgenInfo.testScriptFilename;
+                     fetchCaseDetails: function (caseId, testgenInfo) {
+                         return fetch('/api/case/' + testgenInfo.testScriptFilename)
+                             .then(function (res) { return res.json(); });
                      }
                  })
              });
