@@ -14,7 +14,7 @@
     "express-fileupload": "^1.1.7-alpha.4",
     "lodash": "^4.17.19",
     "morgan": "^1.10.0",
-    "unzip": "^0.1.11"
+    "unzipper": "^0.10.11"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"

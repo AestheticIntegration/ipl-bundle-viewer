@@ -4,7 +4,7 @@ const morgan = require('morgan');
 const _ = require('lodash');
 const fs = require('fs');
 const path = require('path');
-const unzip = require('unzip');
+const unzipper = require('unzipper');
 const stream = require('stream');
 
 const app = express();
@@ -15,7 +15,7 @@ app.use(fileUpload());
 app.use(express.static('static'));
 
 function unzipBundle(file, path, cb) {
-    let extract = unzip.Extract({ path: path });
+    let extract = unzipper.Extract({ path: path });
     extract.on('close', function () {
         cb();
     });
