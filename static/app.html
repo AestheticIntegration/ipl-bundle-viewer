@@ -55,6 +55,10 @@
                      fetchCaseDetails: function (caseId, testgenInfo) {
                          return fetch('/api/case/' + testgenInfo.testScriptFilename)
                              .then(function (res) { return res.json(); });
+                     },
+                     fetchBundleFile: function (path) {
+                         return fetch('/bundle' + path)
+                             .then(function (res) { return res.text(); });
                      }
                  })
              });
